@@ -1,14 +1,17 @@
 import express from 'express';
-import {connect} from 'mongoose';
+import mongoose,{connect, set, connection} from 'mongoose';
 import { graphqlHTTP } from 'express-graphql';
 import { buildSchema } from 'graphql';
 
-connect('mongodb://graphql_db@graphql_db@graphql_mongodb/graphqlmongo?authMechanism=SCRAM-SHA-1&authSource=admin',{
-    useNewUrlParser:true,
-    useCreateIndex:true,
-    useFindAndModify:false,
-    useUnifiedTopology:true
-})
+mongoose.connect(process.env.MONGO_CONNECTION_STRING, JSON.parse(process.env.MONGO_CONNECTION_PARAMS));
+
+mongoose.connection.on('error', err => {
+console.log('mongoose.connection error: ', err);
+    let exit = process.exit;
+    exit(1);
+});
+
+mongoose.set('debug', true);
 
 const schema = buildSchema(`
     type Query{

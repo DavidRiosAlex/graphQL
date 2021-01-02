@@ -1,5 +1,7 @@
 version: "3"
 services:
+
+
   graphql_api:
     build:
       context: ../src 
@@ -15,6 +17,10 @@ services:
     environment: 
       WAIT_HOSTS_TIMEOUT: 60
       WAIT_HOSTS: "${MONGO_CONTAINER_NAME}:27017"
+    networks:
+      - graphql_network
+
+
   graphql_mongodb:
     container_name: ${MONGO_CONTAINER_NAME}
     image: mongo:latest
@@ -22,8 +28,12 @@ services:
       - ../.env_development
     volumes:
       - ".${MONGO_DATA_DIR}:${MONGO_DATA_DIR}"
-    ports: :
+    ports:
       - "${MONGO_EXPOSED_PORT}:27017"
+    networks:
+      - graphql_network
 
 
-
+networks:
+  graphql_network:
+    driver: bridge

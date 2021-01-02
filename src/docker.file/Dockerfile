@@ -16,4 +16,4 @@ RUN npm install
 ARG port=3000
 EXPOSE $port
 
-CMD /wait && nodemon index.js
+CMD /wait && nodemon --exec babel-node index.js
