@@ -1,0 +1,29 @@
+version: "3"
+services:
+  graphql_api:
+    build:
+      context: ../src 
+      dockerfile: ./docker.file/Dockerfile
+      args:
+        port: "3000"
+    volumes:
+      - ../src/index.js:/srv/api/index.js
+    env_file:
+      - ../.env_development
+    ports:
+      - "3000:3000"
+    environment: 
+      WAIT_HOSTS_TIMEOUT: 60
+      WAIT_HOSTS: "${MONGO_CONTAINER_NAME}:27017"
+  graphql_mongodb:
+    container_name: ${MONGO_CONTAINER_NAME}
+    image: mongo:latest
+    env_file: 
+      - ../.env_development
+    volumes:
+      - ".${MONGO_DATA_DIR}:${MONGO_DATA_DIR}"
+    ports: :
+      - "${MONGO_EXPOSED_PORT}:27017"
+
+
+
