@@ -24,9 +24,9 @@ const typeDefs = `
         created: String,
         updated: String
     }
-`
+`;
 
 export default {
-    typeDefs, 
-    resolvers
+  typeDefs,
+  resolvers,
 };
