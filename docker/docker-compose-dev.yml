@@ -4,12 +4,16 @@ services:
 
   graphql_api:
     build:
-      context: ../src 
+      context: ../src
       dockerfile: ./docker.file/Dockerfile
       args:
         port: "3000"
     volumes:
+      - ../src/schemas.js:/srv/api/schemas.js
       - ../src/index.js:/srv/api/index.js
+      - ../constants/variables.js:/srv/api/constants/variables.js
+      - ../resolvers/resolvers.js:/srv/api/resolvers/resolvers.js
+      - ../models/:/srv/api/models/
     env_file:
       - ../.env_development
     ports:
