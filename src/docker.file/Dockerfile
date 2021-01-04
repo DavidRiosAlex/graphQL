@@ -6,8 +6,9 @@ WORKDIR /srv/api/
 
 ENV NODE_ENV development
 
-COPY package*.json ./
+COPY ./package*.json ./
 COPY . ./
+
 RUN apt-get update
 
 RUN npm install -g nodemon
@@ -16,4 +17,4 @@ RUN npm install
 ARG port=3000
 EXPOSE $port
 
-CMD /wait && nodemon --exec babel-node index.js
+CMD /wait && npm run dev
