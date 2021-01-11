@@ -1,8 +1,10 @@
 node_modules/
 dist/
 data/
-package-lock.json
-.eslintrc.json
-.eslintignore
-.env_development
 .env
+.env_development
+.eslintrc.js
+.eslintignore
+./package.json
+package-lock.json
+.eslintrc.js

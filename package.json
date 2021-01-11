@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel src -d dist --source-maps",
     "start": "babel-node ./index.js",
-    "eslint": "eslint ../**/*.js",
+    "eslint": "eslint .",
     "dev": "nodemon ./index.js --exec babel-node"
   },
   "repository": {
@@ -23,13 +23,7 @@
     "@babel/core": "^7.12.10",
     "@babel/node": "^7.12.10",
     "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.12.11",
-    "express": "^4.17.1",
-    "express-graphql": "^0.12.0",
-    "graphql": "^15.4.0",
-    "graphql-tools": "^7.0.2",
-    "mongoose": "^5.11.9",
-    "nodemon": "^2.0.6"
+    "@babel/preset-env": "^7.12.11"
   },
   "devDependencies": {
     "eslint": "^7.16.0",
