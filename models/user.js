@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import crypto from 'crypto';
+import jwt from 'jwt'
 
 const UserSchema = new mongoose.Schema({
   name: String,
@@ -25,6 +26,19 @@ UserSchema.methods = {
     if (passwordToAuthenticate === this.encodedPassword) return true;
     else return false;
   },
+  getToken(){
+    const info = {
+      entity:'user',
+      role:'user', 
+      username: this.username, 
+      type: 'access'
+    };
+    const infoRefresh = {...info, role:undefined, type:'refresh'};
+    const token = jwt.sign(info,process.env.API_KEY,{expiresIn:360000});
+    const refreshToken = jwt.sign(infoRefresh, process.env.API_KEY, {expiresIn:360000})
+
+    return {token, refresh_token}
+  }
 };
 
 UserSchema.virtual('password').set(function(password) {
