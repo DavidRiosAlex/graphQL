@@ -18,6 +18,15 @@ const typeDefs = `
     }
     type Mutation{
         postUser(input: UserInput): User
+        access(login: UserLogin): Token
+    }
+    type Token{
+        accessToken: String
+        refreshToken: String
+    }
+    input UserLogin{
+        username: String!
+        password: String!
     }
     input UserInput{
         name: String!,
