@@ -23,6 +23,7 @@ const typeDefs = `
     type Token{
         accessToken: String
         refreshToken: String
+        user: User
     }
     input UserLogin{
         username: String!

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import crypto from 'crypto';
-import jwt from 'jwt'
+import jwt from 'jsonwebtoken'
 
 const UserSchema = new mongoose.Schema({
   name: String,
@@ -34,10 +34,10 @@ UserSchema.methods = {
       type: 'access'
     };
     const infoRefresh = {...info, role:undefined, type:'refresh'};
-    const token = jwt.sign(info,process.env.API_KEY,{expiresIn:360000});
+    const accessToken = jwt.sign(info,process.env.API_KEY,{expiresIn:360000});
     const refreshToken = jwt.sign(infoRefresh, process.env.API_KEY, {expiresIn:360000})
 
-    return {token, refresh_token}
+    return {accessToken, refreshToken}
   }
 };
 
