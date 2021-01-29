@@ -1,7 +1,5 @@
 import UserModel from '../models/user';
 
-let access;
-
 const Resolvers = {
   Query:{
     getUsers: async ()=>{
@@ -11,10 +9,15 @@ const Resolvers = {
   },
   Mutation:{
     postUser: async (_,{input},{req})=>{
-      console.table(req)
       const user = await UserModel(input)
       await user.save()
       return user
+    },
+    access: async (_,{input},{req})=>{
+      const user = await UserModel.findOne({username:input.username});
+      if (! user.authenticate(input.password)) throw "401"
+      const access = await user.getToken();
+      return {user,...access}
     }
   }
 };
